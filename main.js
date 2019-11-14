@@ -15,7 +15,7 @@ $(document).ready( () => {
   let body = document.querySelector('body');
 
   body.addEventListener('keydown', event => {  
-    load();
+    displayImg();
   })
 
   let left_div = document.querySelector('.left')
@@ -24,26 +24,25 @@ $(document).ready( () => {
   //let accessKey = 'g';
   let url = `https://api.unsplash.com/photos/random?count=2&client_id=${accessKey}`;
   
-  async function getImg (){
+  async function getImg(){
   const response = await axios.get(url)
+  console.log(response)
   return response;
   }
   
-  const load = () => {
+  const displayImg = () => {
   getImg().then((result) => {
-    console.log(result);
     let img1 = result.data[0].urls.regular;
     let img2 = result.data[1].urls.regular;
-    console.log(img1);
-    console.log(img2);
-    console.log(typeof img1)
+    let color = result.data[0].color;
     $('.left').css('background',`url(${img1})`)
     $('.right').css('background',`url(${img2})`)
+    $('h3').css('color', color)
   })
 
 }
 
-load();
+displayImg();
 
   //console.log(getImg())
   /*
